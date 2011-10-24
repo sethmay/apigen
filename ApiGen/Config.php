@@ -46,6 +46,7 @@ class Config
 		'config' => '',
 		'source' => array(),
 		'destination' => '',
+		'include' => array(),
 		'exclude' => array(),
 		'skipDocPath' => array(),
 		'skipDocPrefix' => array(),
@@ -388,6 +389,7 @@ Options:
 	@option@--config@c|@option@-c@c        <@value@file@c>      Config file
 	@option@--source@c|@option@-s@c        <@value@dir@c|@value@file@c>  Source file or directory to parse (can be used multiple times)
 	@option@--destination@c|@option@-d@c   <@value@dir@c>       Directory where to save the generated documentation
+	@option@--include@c          <@value@mask@c>      Mask of file types to be included (can be used multiple times)
 	@option@--exclude@c          <@value@mask@c>      Mask to exclude file or directory from processing (can be used multiple times)
 	@option@--skip-doc-path@c    <@value@mask@c>      Don't generate documentation for classes from file or directory with this mask (can be used multiple times)
 	@option@--skip-doc-prefix@c  <@value@value@c>     Don't generate documentation for classes with this name prefix (can be used multiple times)

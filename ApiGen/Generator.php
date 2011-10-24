@@ -183,19 +183,28 @@ class Generator extends Nette\Object
 			}
 
 			foreach ($entries as $entry) {
-				if (!preg_match('~\\.php$~i', $entry->getFilename())) {
-					continue;
-				}
-				foreach ($this->config->exclude as $mask) {
+		        $includeFile = false;
+		        // Check to see if the files should be included
+			    foreach ($this->config->include as $mask) {
+			        if (fnmatch($mask, $entry->getPathName(), FNM_NOESCAPE)) {
+			            $includeFile = true;
+					}
+			    }
+
+		        // Check to see if the files matches an exlude mask
+			    foreach ($this->config->exclude as $mask) {
 					if (fnmatch($mask, $entry->getPathName(), FNM_NOESCAPE)) {
-						continue 2;
+					    $includeFile = false;
 					}
 				}
 
-				$files[$entry->getPathName()] = $entry->getSize();
-				if ($entry->getPathName() !== $entry->getRealPath()) {
-					$this->symlinks[$entry->getRealPath()] = $entry->getPathName();
-				}
+			    if ($includeFile)
+			    {
+			        $files[$entry->getPathName()] = $entry->getSize();
+    				if ($entry->getPathName() !== $entry->getRealPath()) {
+    					$this->symlinks[$entry->getRealPath()] = $entry->getPathName();
+    				}
+			    }
 			}
 		}
 
